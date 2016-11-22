@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Split-MarkdownTopic - Silk</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-Silk</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/pshdo/Silk">-Project</a></li>
+    </ul>
+
+    <h1>Split-MarkdownTopic</h1>
+<div class="Synopsis">
+<p>Parses a Markdown-formatted module help topic, e.g. about_Module.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Split-MarkdownTopic [-ConfigFileRoot] &lt;Object&gt; [-TopicInfo] &lt;Object&gt; [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>A Markdown-formatted help topic should contain four sections, <code>Topic</code>, <code>Short Description</code>, <code>Long Description</code>, and <code>See Also</code>.  These should all be formatted as level-1 headings.  For example:</p>
+
+<pre><code># Topic
+
+about_Silk
+
+# Short Description
+
+Silk is a PowerShell module used to convert another module's help system into an HTML website.
+
+# Long Description
+
+MOre details here.  Yadda, yadda, yadda.
+
+# See Also
+
+about_Silk_AdditionalTopic
+</code></pre>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>ConfigFileRoot</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.object.aspx">Object</a></td>
+	<td class="ParamDescription"><p>The root where the config file was found.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>TopicInfo</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.object.aspx">Object</a></td>
+	<td class="ParamDescription"><p>An object containing information about the topic to parse.</p></td>
+	<td>true</td>
+	<td>true (ByValue)</td>
+    <td></td>
+</tr>
+
+</table>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

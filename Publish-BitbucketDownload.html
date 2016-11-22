@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Publish-BitbucketDownload - Silk</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-Silk</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/pshdo/Silk">-Project</a></li>
+    </ul>
+
+    <h1>Publish-BitbucketDownload</h1>
+<div class="Synopsis">
+<p>Creates and publishes a ZIP file to Bitbucket so it is available on a project's download page.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Publish-BitbucketDownload [[-Credential] &lt;PSCredential&gt;] [-Username] &lt;String&gt; [-ProjectName] &lt;String&gt; [-Path] &lt;String[]&gt; [-ManifestPath] &lt;String&gt; [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>Publish-BitbucketDownload</code> function creates a ZIP file and publishes it to a repository so it is availabe on a project's download page. If the file already exists on Bitbucket, nothing is uploaded.</p>
+</div>
+
+<h2>Related Commands</h2>
+
+<ul class="RelatedCommands">
+<li><a href="https://bitbucket.org/Swyter/bitbucket-curl-upload-to-repo-downloads">https://bitbucket.org/Swyter/bitbucket-curl-upload-to-repo-downloads</a></li>
+</ul>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>Credential</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.management.automation.pscredential.aspx">PSCredential</a></td>
+	<td class="ParamDescription"><p>The Bitbucket credentials to use.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>Username</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The account of the project you're uploading a file to.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>ProjectName</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The name of the project you're uploading a file to.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>Path</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String[]</a></td>
+	<td class="ParamDescription"><p>The paths to the files and directories to include in the ZIP file. All files and sub-directories under directory are added.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>ManifestPath</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The path to the manifest of the module being published.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+
+</table>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Use-CallerPreference - Silk</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-Silk</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/pshdo/Silk">-Project</a></li>
+    </ul>
+
+    <h1>Use-CallerPreference</h1>
+<div class="Synopsis">
+<p>Sets the PowerShell preference variables in a module's function based on the callers preferences.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Use-CallerPreference [-Cmdlet] &lt;Object&gt; [-SessionState] &lt;SessionState&gt; [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>Script module functions do not automatically inherit their caller's variables, including preferences set by common parameters. This means if you call a script with switches like <code>-Verbose</code> or <code>-WhatIf</code>, those that parameter don't get passed into any function that belongs to a module. </p>
+
+<p>When used in a module function, <code>Use-CallerPreference</code> will grab the value of these common parameters used by the function's caller:</p>
+
+<ul>
+<li>ErrorAction</li>
+<li>Debug</li>
+<li>Confirm</li>
+<li>InformationAction</li>
+<li>Verbose</li>
+<li>WarningAction</li>
+<li>WhatIf</li>
+</ul>
+
+<p>This function should be used in a module's function to grab the caller's preference variables so the caller doesn't have to explicitly pass common parameters to the module function.</p>
+
+<p>This function is adapted from the <a href="https://gallery.technet.microsoft.com/scriptcenter/Inherit-Preference-82343b9d"><code>Get-CallerPreference</code> function written by David Wyatt</a>.</p>
+
+<p>There is currently a <a href="https://connect.microsoft.com/PowerShell/Feedback/Details/763621">bug in PowerShell</a> that causes an error when <code>ErrorAction</code> is implicitly set to <code>Ignore</code>. If you use this function, you'll need to add explicit <code>-ErrorAction $ErrorActionPreference</code> to every function/cmdlet call in your function. Please vote up this issue so it can get fixed.</p>
+</div>
+
+<h2>Related Commands</h2>
+
+<ul class="RelatedCommands">
+<li>about_Preference_Variables</li>
+<li>about_CommonParameters</li>
+<li><a href="https://gallery.technet.microsoft.com/scriptcenter/Inherit-Preference-82343b9d">https://gallery.technet.microsoft.com/scriptcenter/Inherit-Preference-82343b9d</a></li>
+<li><a href="http://powershell.org/wp/2014/01/13/getting-your-script-module-functions-to-inherit-preference-variables-from-the-caller/">http://powershell.org/wp/2014/01/13/getting-your-script-module-functions-to-inherit-preference-variables-from-the-caller/</a></li>
+</ul>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>Cmdlet</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.object.aspx">Object</a></td>
+	<td class="ParamDescription"><p>[Management.Automation.PSScriptCmdlet]
+ The module function's <code>$PSCmdlet</code> object. Requires the function be decorated with the <code>[CmdletBinding()]</code> attribute.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>SessionState</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.management.automation.sessionstate.aspx">SessionState</a></td>
+	<td class="ParamDescription"><p>The module function's <code>$ExecutionContext.SessionState</code> object.  Requires the function be decorated with the <code>[CmdletBinding()]</code> attribute. </p>
+
+<p>Used to set variables in its callers' scope, even if that caller is in a different script module.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+
+</table>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>Use-CallerPreference -Cmdlet $PSCmdlet -SessionState $ExecutionContext.SessionState</code></pre>
+<p>Demonstrates how to set the caller's common parameter preference variables in a module function.</p>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

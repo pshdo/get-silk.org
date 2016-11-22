@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Publish-PowerShellGalleryModule - Silk</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-Silk</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/pshdo/Silk">-Project</a></li>
+    </ul>
+
+    <h1>Publish-PowerShellGalleryModule</h1>
+<div class="Synopsis">
+<p>Publishes a module to the PowerShell gallery.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Publish-PowerShellGalleryModule [-ManifestPath] &lt;String&gt; [-ModulePath] &lt;String&gt; [-ReleaseNotesPath] &lt;String&gt; [[-Name] &lt;String&gt;] [[-ApiKey] &lt;String&gt;] [-LicenseUri] &lt;String&gt; [[-Tags] &lt;String[]&gt;] [[-ProjectUri] &lt;String&gt;] [-WhatIf] [-Confirm] [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>Publish-PowerShellGalleryModule</code> functin publishes a module to the PowerShell Gallery. If the given version of the module already exists in the Gallery, a warning is written and no other work is done.</p>
+
+<p>If you don't supply a PowerShell Gallery API key via the <code>ApiKey</code> parameter, you'll be prompted for it.</p>
+
+<p>Returns a <code>PSGetItemInfo</code> object if the module gets published (the object returned by the <code>Find-Module</code> cmdlet). If the version of the module already exists in the Gallery, you'll get a warning that the module has already been published.</p>
+
+<p>This function requires the <code>PowerShellGet</code> module. If it isn't available, you'll get an error.</p>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>ManifestPath</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>Path to the module's manifest.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>ModulePath</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The path to the module.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>ReleaseNotesPath</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The release notes.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>Name</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The name of the module being published. Defaults to the name in the module manifest.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>ApiKey</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The API key for the PowerShell Gallery.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>LicenseUri</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The URL to the module's license.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>Tags</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String[]</a></td>
+	<td class="ParamDescription"><p>Any tags for the module.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>ProjectUri</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The URL to the project's home page.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>WhatIf</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.management.automation.switchparameter.aspx">SwitchParameter</a></td>
+	<td class="ParamDescription"></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>Confirm</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.management.automation.switchparameter.aspx">SwitchParameter</a></td>
+	<td class="ParamDescription"></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign="top">
+    <td><a href="http://technet.microsoft.com/en-us/library/dd315352.aspx">CommonParameters</a></td>
+    <td></td>
+    <td>This cmdlet supports common parameters.  For more information type <br> <code>Get-Help about_CommonParameters</code>.</td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+</table>
+
+<h2>Return Values</h2>
+<div class="ReturnValues">
+<p>PSGetItemInfo. </p>
+</div>
+
+<h2>EXAMPLE 1</h2>
+<pre><code>Publish-PowerShellGalleryModule -Name 'Carbon' -Version '2.0.0' -LicenseUri ''http://www.apache.org/licenses/LICENSE-2.0'</code></pre>
+
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

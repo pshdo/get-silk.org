@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Silk: PowerShell module for PowerShell module authors and projects</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-Silk</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/pshdo/Silk">-Project</a></li>
+    </ul>
+
+        <h1>Silk</h1>
+
+    
+
+    <h2>Name</h2>
+<p>Silk</p>
+<h2>Synopsis</h2>
+<p>Silk is a PowerShell module for authoring, building, and publishing
+PowerShell modules and creating a website from a module's help 
+topics.</p>
+<h2>Description</h2>
+<p>Silk is a PowerShell module for PowerShell module authors. Use it to:</p>
+
+<ul>
+<li>Automatically version of your module</li>
+<li>Easily build your module, including any compiled assemblies</li>
+<li>Publish your module as a Chocolatey and/or NuGet package</li>
+<li>Publish your module to the PowerShell gallery</li>
+<li>Convert your module's help as a website</li>
+</ul>
+
+<p>If you look in Silk's Examples directory, you'll see three scripts 
+that demonstrate its capabilities:</p>
+
+<ul>
+<li><code>Invoke-Build.ps1</code> shows how to build and package your module with 
+Silk</li>
+<li><code>Publish-Module.ps1</code> shows how to publish your module to 
+Chocolatey, NuGet, and the PowerShell Gallery.</li>
+<li><code>Publish-Website.ps1</code> shows how to publish your module's help to a 
+website.</li>
+</ul>
+
+<h2>Versioning and Building</h2>
+
+<p>To get started, create a <code>build.ps1</code> file in the root of your 
+repository. In your <code>build.ps1</code> file, import Silk. Use Silk's 
+<a href="Set-ModuleVersion.html">Set-ModuleVersion</a> function to set your module's version and 
+compile any code.</p>
+
+<pre><code>Set-ModuleVersion -ManifestPath "PATH TO MODULE'S *.psd1 FILE" `
+                  -Version "VERSION TO BUILD" `
+                  -ReleaseNotesPath 'PATH TO RELEASE NOTES FILE' 
+</code></pre>
+
+<p><a href="Set-ModuleVersion.html">Set-ModuleVersion</a> will also set the version in a .nuspec file (for 
+creating Chocolatey and NuGet packages) and an AssemblyInfo.cs file 
+(for versioning your module's assembly. </p>
+
+<p><a href="Set-ModuleVersion.html">Set-ModuleVersion</a> will build a Visual Studio solution if you pass 
+its path via the <code>SolutionPath</code> parameter.</p>
+
+<p>Silk expects your release notes files to be written in Markdown. It 
+expects each level-1 header (marked with a single <code>#</code> at the 
+beginning of a line) to be a version number, and everything after 
+that header to the next level-1 header (or the end of the file) to 
+be the release notes for that version. When <a href="Set-ModuleVersion.html">Set-ModuleVersion</a> sets 
+the version in a release notes file, it only sets the first level-1 
+header it finds.</p>
+
+<p>See the <code>RELEASE_NOTES.md</code> included with the Silk module for an 
+example.</p>
+
+<h1>Packaging and Preparing to Release</h1>
+
+<p>Silk can do the following actions to prepare your module for a 
+release:</p>
+
+<ul>
+<li>The <a href="Set-ReleaseNotesReleaseDate.html">Set-ReleaseNotesReleaseDate</a> function set the release date in 
+your release notes file.</li>
+<li>The <a href="Set-ModuleManifestMetadata.html">Set-ModuleManifestMetadata</a> function sets the release notes 
+and tags fields in your module manifest (i.e. .psd1 file). </li>
+<li>Thge <a href="Set-ModuleNuspec.html">Set-ModuleNuspec</a> function sets metadata in a .nuspec file 
+(for Chocolatey and NuGet packages). The .nuspec file's description, 
+version, tags, and copyright fields are set from your module's 
+manifest (i.e. .psd1) file. The .nuspec file's releaseNotes property 
+is pulled from your release notes file.</li>
+<li>The <a href="New-NugetPackage.html">New-NugetPackage</a> function will create a NuGet package from a 
+.nuspec file.</li>
+<li>The <a href="New-ChocolateyPackage.html">New-ChocolateyPackage</a> function will create a Chocolatey 
+package from a .nuspec file. </li>
+</ul>
+
+<h2>Publishing/Releasing a Module</h2>
+
+<p>Silk has the following functions you can use to publish/release your 
+module:</p>
+
+<ul>
+<li><a href="Publish-NuGetPackage.html">Publish-NuGetPackage</a> will publish your module's .nupkg file to 
+nuget.org. (You create a .nupkg file from a .nuspec file with the 
+<a href="New-NuGetPackage.html">New-NuGetPackage</a> function.)</li>
+<li><code>Pulish-ChocolateyPackage</code> will publish your module's .nupkg file 
+to chocolatey.org. (You create a .nupkg file from a .nuspec file 
+with the <a href="New-ChocolateyPackage.html">New-ChocolateyPackage</a> function.</li>
+<li><a href="Publish-PowerShellGalleryModule.html">Publish-PowerShellGalleryModule</a> will publish your module to the 
+PowerShell Gallery (https://powershellgallery.com).</li>
+</ul>
+
+<h2>Creating a Website from a Module's Help Topics</h2>
+
+<p>Silk has the following functions for generating a website from a 
+module's help topics. Silk assumes your help is written in Markdown.</p>
+
+<p>Silk will auto-link to commands inside your module. Surround your 
+module's command names, script names, and about topics in backticks, 
+and Silk will convert it to a link to that item's help topic. For 
+example, <a href="about_Silk.html">about_Silk</a> will get converted to <code>&lt;a 
+href="about_Silk.html"&gt;about_Silk&lt;/a&gt;</code>.</p>
+
+<ul>
+<li><a href="Convert-ModuleHelpToHtml.html">Convert-ModuleHelpToHtml</a> converts the help for each command in a 
+module to an .html page/file.</li>
+<li><a href="New-ModuleHelpIndex.html">New-ModuleHelpIndex</a> creates an index.html page that includes 
+links to a module's <code>about_</code> help topics, standalone scripts, and 
+commands. The commands are organized into three tabs: one organized 
+by tags, one organized alphabetically by command name, and one 
+organized alphabetically by verb.</li>
+<li><a href="Convert-ABoutTopicToHtml.html">Convert-ABoutTopicToHtml</a> converts about topics to HTML pages.</li>
+</ul>
+
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>

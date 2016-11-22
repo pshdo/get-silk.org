@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>PowerShell - Convert-AboutTopicToHtml - Silk</title>
+    <link href="silk.css" type="text/css" rel="stylesheet" />
+	<link href="styles.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+
+    <ul id="SiteNav">
+		<li><a href="index.html">Get-Silk</a></li>
+		<li><a href="documentation.html">-Documentation</a></li>
+        <li><a href="releasenotes.html">-ReleaseNotes</a></li>
+		<li><a href="http://pshdo.com">-Blog</a></li>
+        <li><a href="http://github.com/pshdo/Silk">-Project</a></li>
+    </ul>
+
+    <h1>Convert-AboutTopicToHtml</h1>
+<div class="Synopsis">
+<p>Converts an about topic into HTML.</p>
+</div>
+
+<h2>Syntax</h2>
+<pre class="Syntax"><code>Convert-AboutTopicToHtml [-InputObject] &lt;Object&gt; [[-TopicName] &lt;String&gt;] [-ModuleName] &lt;String&gt; [[-TopicHeading] &lt;String&gt;] [[-ShortDescriptionHeading] &lt;String&gt;] [[-LongDescriptionHeading] &lt;String&gt;] [[-SeeAlsoHeading] &lt;String&gt;] [[-HeadingMap] &lt;Hashtable&gt;] [[-Script] &lt;String[]&gt;] [&lt;CommonParameters&gt;]</code></pre>
+
+<h2>Description</h2>
+<div class="Description">
+<p>The <code>Convert-AboutTopicToHtml</code> converts a PowerShell about topic into HTML. The about topic is expected to be <a href="https://msdn.microsoft.com/en-us/library/Dd878343.aspx">formatted like PowerShell's internal topics</a>:</p>
+
+<pre><code>TOPIC
+    about_&lt;subject or module name&gt;
+
+SHORT DESCRIPTION
+    A short, one-line description of the topic contents.
+
+LONG DESCRIPTION
+    A detailed, full description of the subject or purpose of the module.
+
+EXAMPLES
+    Examples of how to use the module or how the subject feature works in practice.
+
+KEYWORDS
+    Terms or titles on which you might expect your users to search for the information in this topic.
+
+SEE ALSO
+    Text-only references for further reading. Hyperlinks cannot work in the Windows PowerShell console. 
+</code></pre>
+
+<p><code>Convert-AboutTopicToHtml</code> does the following:</p>
+
+<ul>
+<li>Removes the <code>TOPIC</code> AND <code>SHORT DESCRIPTION</code> headers</li>
+<li>Wraps the topic name in an <h1> tag</li>
+<li>Renames the <code>LONG DESCRIPTION</code> heading to '<h2>Description</h2></li>
+<li>Wraps all other headers in <h2> elements.</li>
+<li>Converts the bodies of each section to HTML </li>
+</ul>
+
+<p>Lines that don't begin with spaces are assumed to be headers.</p>
+
+<p>Lines that begin with spaces are assumed to be content written in Markdown.</p>
+
+<p>The <code>SEE ALSO</code> section is parsed, one line at a time for links, command names, and other help topics, e.g.</p>
+
+<pre><code>SEE ALSO
+    https://msdn.microsoft.com/en-us/library/Dd878343.aspx
+    about_Silk
+    Convert-AboutTopicToHtml
+</code></pre>
+
+<p>Would convert into a three item list, the first a link to the web, the second a link to the <code>about_Silk.html</code> topic, and the third to the <code>Convert-AboutTopicToHtml.html</code> page.</p>
+</div>
+
+<h2> Parameters </h2>
+<table id="Parameters">
+<tr>
+	<th>Name</th>
+    <th>Type</th>
+	<th>Description</th>
+	<th>Required?</th>
+	<th>Pipeline Input</th>
+	<th>Default Value</th>
+</tr>
+<tr valign='top'>
+	<td>InputObject</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.object.aspx">Object</a></td>
+	<td class="ParamDescription"><p>The name of the help topic, include the <code>about_</code> prefix, or a <code>FileInfo</code> object representing the help topic, or the help topic as a giant string.</p></td>
+	<td>true</td>
+	<td>true (ByValue)</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>TopicName</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The name of the topic you're converting. Only used if <code>InputObject</code> is the text of the about topic.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>ModuleName</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The name of the module being documented.</p></td>
+	<td>true</td>
+	<td>false</td>
+    <td></td>
+</tr>
+<tr valign='top'>
+	<td>TopicHeading</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The heading used for the topic's name. Default is <code>TOPIC</code>.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>TOPIC</td>
+</tr>
+<tr valign='top'>
+	<td>ShortDescriptionHeading</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The heading used for the topic's short description. Default is <code>SHORT DESCRIPTION</code>.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>SHORT DESCRIPTION</td>
+</tr>
+<tr valign='top'>
+	<td>LongDescriptionHeading</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The heading used for the topic's long description. Default is <code>LONG DESCRIPTION</code>.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>LONG DESCRIPTION</td>
+</tr>
+<tr valign='top'>
+	<td>SeeAlsoHeading</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String</a></td>
+	<td class="ParamDescription"><p>The heading used for the topic's <code>See Also</code> section. Default is <code>SEE ALSO</code>.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>SEE ALSO</td>
+</tr>
+<tr valign='top'>
+	<td>HeadingMap</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.collections.hashtable.aspx">Hashtable</a></td>
+	<td class="ParamDescription"><p>A hashtable of headings to use. They key should be the section name. The value should be the heading name.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td>@{}</td>
+</tr>
+<tr valign='top'>
+	<td>Script</td>
+	<td><a href="http://msdn.microsoft.com/en-us/library/system.string.aspx">String[]</a></td>
+	<td class="ParamDescription"><p>The names of any scripts in the module.</p></td>
+	<td>false</td>
+	<td>false</td>
+    <td></td>
+</tr>
+
+</table>
+
+
+	<div class="Footer">
+		Copyright 2016 <a href="http://pshdo.com">Aaron Jensen</a>.
+	</div>
+
+</body>
+</html>
